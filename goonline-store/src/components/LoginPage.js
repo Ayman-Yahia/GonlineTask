@@ -5,12 +5,16 @@ import Controls from './Inputs/Controls';
 import axios from 'axios'
 import Cookies from "js-cookie";
 import {useNavigate} from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Box from '@material-ui/core/Box';
+
 const LoginPage = () => {
     const _isMounted = useRef(true);
     const navigate = useNavigate();
     const[username,setUsername]=useState("")
     const[password,setPassword]=useState("")
     const[error,setError]=useState("")
+    const [prog,setProg]=useState(false)
     const paperStyle={padding :20,height:'70vh',width:280, margin:"20px auto"}
     const avatarStyle={backgroundColor:'#1bbd7e'}
     const btnstyle={margin:'8px 0'}
@@ -23,13 +27,15 @@ const LoginPage = () => {
         }
     },[])
     const handleSubmit=async (e)=>{
+        setProg(true)
         e.preventDefault();
         const response = await axios.post("https://fakestoreapi.com/auth/login", {
             username:username,
             password:password
           });
-        //   console.log(response);
+          console.log(response);
         if(response){
+            setProg(false)
            if(response.data.status &&response.data.status=="Error"){
             setError(response.data.msg);
            }else{
@@ -58,7 +64,14 @@ const LoginPage = () => {
                 <br/>
                 <br/>
                 <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Login</Button>
-
+                <br/>
+                {
+                    prog &&(
+                        <Box sx={{ display: 'flex',justifyContent:"center" }}>
+                            <CircularProgress />
+                        </Box>
+                    )
+                }
             </Paper>
         </Grid>
         </form>

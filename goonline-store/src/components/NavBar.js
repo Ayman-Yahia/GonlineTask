@@ -2,58 +2,58 @@ import React from "react";
 import {
     AppBar,
     Toolbar,
-    CssBaseline,
     Typography,
     makeStyles,
-    Box
+    Grid,
   } from "@material-ui/core";
 import { Link } from "react-router-dom";
-
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Avatar} from '@material-ui/core'
-
   const useStyles = makeStyles((theme) => ({
-    navlinks: {
-    },
-   logo: {
-      cursor: "pointer",
-      float:"left",
-      width:"50%",
-      textAlign:"left"
+    title:{
+      fontSize:"1.5rem",
+      verticalAlign:"center",
+      marginTop:"15%"
+
     },
     link: {
       textDecoration: "none",
       color: "white",
-      fontSize: "20px",
+      fontSize: "1.5rem",
       marginRight:"0.5rem",
       verticalAlign:"center",
-      textAlign:"right",
-      marginLeft: theme.spacing(40),
       "&:hover": {
         color: "yellow",
       },
     },
-    avatarStyle:{
-        marginRight:0
+    items:{
+      display:"flex",
     }
   }));
 export default function NavBar() {
-const classes = useStyles();
-const avatarStyle={backgroundColor:'#1bbd7e'}
+  const classes = useStyles();
+  const avatarStyle={backgroundColor:'#1bbd7e'}
   return (
-    <Box sx={{ flexGrow: 1 }}>
     <AppBar position="static">
     <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Goonline Store
+    <Grid
+      justifyContent="space-between" 
+      container 
+      spacing={10}
+    >
+      <Grid item>
+        <Typography type="title" color="inherit">
+          <span  className={classes.title}>Goonline Store</span>
         </Typography>
-
-          <Link to="/store" className={classes.link}>
-            username
-          </Link>
+      </Grid>
+      <Grid item>
+        <div className={classes.items}>
+          <Link  to="/store" className={classes.link}>username</Link>
           <Avatar style={avatarStyle}><AccountCircleIcon/></Avatar>
+        </div>
+      </Grid>
+    </Grid>
     </Toolbar>
   </AppBar>
-  </Box>
   );
 }

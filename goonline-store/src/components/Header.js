@@ -29,17 +29,15 @@ const Header = (props) => {
                 console.log(err);
             })
         }
-        
-        console.log(products);
     }
     return (
         <div className={styles.content}>
             <div  className={styles.head}>
-                <button name="all" className={styles.button1} onClick={handleProducts}>All |</button>
+                <button name="all" className={styles.button1} onClick={handleProducts}>All <span className={styles.line}>|</span></button>
                 {
                     categories.map((category,idx)=>{
                         return(
-                            <button className={styles.button} key={idx} name={category} onClick={handleProducts}>{category} |</button>
+                            <button className={styles.button} key={idx} name={category} onClick={handleProducts}>{category} <span className={styles.line}>|</span></button>
                         )
                     })
                 }

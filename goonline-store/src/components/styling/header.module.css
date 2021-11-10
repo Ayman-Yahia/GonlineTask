@@ -36,3 +36,11 @@
     width: 70%;
     margin: 1rem 15%;
 }
+@media (max-width:768px)  {
+    .line{
+        display: none;
+    }
+    .head{
+        flex-direction: column;
+    }
+}
