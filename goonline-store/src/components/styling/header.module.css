@@ -1,0 +1,38 @@
+.content{
+    width:80%;
+    margin: 0 auto;
+}
+.head{
+    width:80%;
+    margin :0 auto;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+.button{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: blue;
+    border: none;
+    background-color: white;
+    margin-left: 0;
+    padding: 0;
+    cursor: pointer;
+}
+.button1{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    border: none;
+    background-color: white;
+    margin-left: 0;
+    padding: 0;
+    cursor: pointer;
+}
+.button:hover{
+    border-bottom: 3px solid yellow;
+}
+.search{
+    width: 70%;
+    margin: 1rem 15%;
+}
