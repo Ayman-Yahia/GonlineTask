@@ -1,21 +1,19 @@
-import React,{useState,useEffect} from 'react'
-import NavBar from './NavBar'
-import Header from './Header';
-import Cookies from "js-cookie";
+import React, { FC,useState,useEffect } from 'react'
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios'
-import Products from './Products';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
-
-export const Store = () => {
-    const [search,setSearch]=useState("")
-    const[progress,setProgress]=useState(false)
+import NavBar from './NavBar';
+import Header from './Header';
+import Products from './Products';
+const Store:FC = () => {
+    const [search,setSearch]=useState<string>("")
+    const[progress,setProgress]=useState<boolean>(false)
     const navigate = useNavigate();
     const[products,setProducts]=useState([])
-    const[categories,setCategories]=useState([])
+    const[categories,setCategories]=useState<string[]>([])
     useEffect(()=>{
-        if (!Cookies.get("StoreId")) {
+        if (!localStorage.getItem("StoreId")) {
             navigate("/")
         }
         setProgress(true)
@@ -50,3 +48,5 @@ export const Store = () => {
         </>
     )
 }
+
+export default Store

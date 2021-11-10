@@ -1,13 +1,19 @@
-import React,{useState} from 'react'
+import React,{useState,FC,ChangeEvent} from 'react'
 import styles from "./styling/header.module.css"
 import axios from 'axios'
 import Controls from './Inputs/Controls';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
-const Header = (props) => {
-    const{categories,setProducts,products,search,setSearch}=props
-    const[progress1,setProgress1]=useState(false)
-    const handleProducts=(e)=>{
+interface props{
+    categories:string[],
+    products:any,
+    search:string,
+    setSearch:any,
+    setProducts:any
+}
+const Header:FC<props> = ({categories,products,search,setSearch,setProducts}) => {
+    const[progress1,setProgress1]=useState<boolean>(false)
+    const handleProducts=(e:ChangeEvent<HTMLInputElement>)=>{
         setProgress1(true)
         if (e.target.name=="all"){
             axios.get('https://fakestoreapi.com/products')
@@ -20,7 +26,7 @@ const Header = (props) => {
                 console.log(err);
             })
         }else{
-            axios.get('https://fakestoreapi.com/products/category/'+e.target.name)
+            axios.get('https://fakestoreapi.com/products/category/'+e.currentTarget.name)
             .then((res)=>{
                 setProducts(res.data)
                 setProgress1(false)
@@ -30,20 +36,23 @@ const Header = (props) => {
             })
         }
     }
+    const handleSearch=(e:ChangeEvent<HTMLInputElement>)=>{
+        setSearch(e.target.value)
+    }
     return (
         <div className={styles.content}>
             <div  className={styles.head}>
-                <button name="all" className={styles.button1} onClick={handleProducts}>All <span className={styles.line}>|</span></button>
+                <button name="all" className={styles.button1} onClick={(e)=>handleProducts}>All <span className={styles.line}>|</span></button>
                 {
                     categories.map((category,idx)=>{
                         return(
-                            <button className={styles.button} key={idx} name={category} onClick={handleProducts}>{category} <span className={styles.line}>|</span></button>
+                            <button className={styles.button} key={idx} name={category} onClick={(e)=>handleProducts}>{category} <span className={styles.line}>|</span></button>
                         )
                     })
                 }
             </div>
             <div className={styles.search}>
-                <Controls.SearchInput placeholder="search...." value={search} onChange={(e)=>setSearch(e.target.value)}/>
+            <Controls.TextInput name="search" onChange={handleSearch} placeholder='Enter username' type="search" />
             </div>
             <br/>
             {progress1 &&(
