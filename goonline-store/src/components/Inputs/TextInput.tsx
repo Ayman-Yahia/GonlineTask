@@ -7,13 +7,11 @@ interface props{
     type:string,
     name:string,
     min?:number,
-    onClick?:any
 }
-const TextInput:FC<props> = ({ onChange,placeholder,type,name,min,onClick}) => {
+const TextInput:FC<props> = ({ onChange,placeholder,type,name,min}) => {
     return (
         <TextField
         // variant="outlined"
-        onClick={onClick}
         name={name}
         type={type}
         // min={min}
