@@ -10,6 +10,8 @@ import {
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import Badge from '@material-ui/core/Badge';
 import { Avatar} from '@material-ui/core'
 import {useNavigate} from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
@@ -22,9 +24,10 @@ const useStyles = makeStyles((theme) => ({
     link: {
       textDecoration: "none",
       color: "white",
-      fontSize: "1.5rem",
+      fontSize: "1.3rem",
       marginRight:"0.5rem",
-      verticalAlign:"center",
+      marginTop:"1.5%",
+      // verticalAlign:"center",
       "&:hover": {
         color: "yellow",
       },
@@ -32,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
     link1: {
       textDecoration: "none",
       color: "white",
-      fontSize: "1.5rem",
+      fontSize: "1rem",
+      fontWeight:"bold",
       marginLeft:"0.5rem",
       verticalAlign:"center",
       "&:hover": {
@@ -46,9 +50,9 @@ const useStyles = makeStyles((theme) => ({
   }));
 const NavBar:FC = () => {
     const classes = useStyles();
-    const avatarStyle={backgroundColor:'#1bbd7e'}
+    const avatarStyle={backgroundColor:'#1bbd7e',margin:"0 0.5rem",cursor:"pointer"}
     const navigate = useNavigate();
-    const handleLogout=():any=>{
+    const handleLogout=():void=>{
       Cookies.remove("StoreId");
       navigate("/")
     }
@@ -67,8 +71,11 @@ const NavBar:FC = () => {
           </Grid>
           <Grid item>
             <div className={classes.items}>
-              <Link  to="/store" className={classes.link}>username</Link>
+              <Link  to="/store" className={classes.link}>mor_2314</Link>
               <Avatar style={avatarStyle}><AccountCircleIcon/></Avatar>
+              <Badge badgeContent={0} color='error' style={{marginTop:"0.5rem",cursor:"pointer"}} onClick={()=>navigate("/cart")}>
+                <AddShoppingCartIcon />
+              </Badge>
               <Button onClick={handleLogout} className={classes.link1}>Logout</Button>
             </div>
           </Grid>

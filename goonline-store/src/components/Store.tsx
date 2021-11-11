@@ -38,7 +38,7 @@ const Store:FC = () => {
     return (
         <>
             <NavBar/>
-            <Header categories={categories} setProducts={setProducts} products={products} search={search} setSearch={setSearch}/>
+            <Header categories={categories} setProducts={setProducts} setSearch={setSearch}/>
             {progress ?(
                 <Box sx={{ display: 'flex',justifyContent:"center" }}>
                     <CircularProgress />

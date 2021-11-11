@@ -35,7 +35,7 @@ const LoginPage:FC = () => {
         //   console.log(response);
         if(response){
             setProg(false)
-           if(response.data.status &&response.data.status=="Error"){
+           if(response.data.status &&response.data.status==="Error"){
             setError(response.data.msg);
            }else{
             Cookies.set("StoreId", response.data.token);
@@ -45,8 +45,8 @@ const LoginPage:FC = () => {
         setUsername("")
         setPassword("")        
     }
-    const handleChange=(e: React.FormEvent<HTMLFormElement>)=>{
-        if(e.currentTarget.name=="username"){
+    const handleChange=(e: React.FormEvent<HTMLFormElement>):void=>{
+        if(e.currentTarget.name==="username"){
             setUsername(e.currentTarget.value)
         }else{
             setPassword(e.currentTarget.value)

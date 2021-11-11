@@ -56,9 +56,9 @@ const Product:FC = () => {
     const handleQuantity=(e: React.FormEvent<HTMLFormElement>):void=>{
       setQuantity(e.currentTarget.value)
     }
-    // const handleQuantity=():void=>{
-
-    // }
+    const addToCart=():void=>{
+      setQuantity(0)
+    }
     return (
       <>
       <NavBar/>
@@ -88,7 +88,7 @@ const Product:FC = () => {
             <h2>${product.price}</h2>
             <p>{product.description}</p>
             <Controls.TextInput name="quantity" onChange={handleQuantity}  placeholder='Enter Quantity' type="number" min={0} />
-            <button className="cart">Add to cart</button>
+            <button className="cart" onClick={addToCart}>Add to cart</button>
           </div>
         </div>
     </div>

@@ -8,6 +8,7 @@ import {
 import LoginPage from './components/LoginPage';
 import Store from './components/Store';
 import Product from './components/Product';
+import Cart from './components/Cart';
 const App:FC=()=>{
   return (
     <div className="App">
@@ -16,6 +17,7 @@ const App:FC=()=>{
         <Route path ="/" element={<LoginPage/>}/>
         <Route path ="/store" element={<Store/>}/>
         <Route path ="/store/:id" element={<Product/>}/>
+        <Route path ="/cart" element={<Cart/>}/>
       </Routes>
       </BrowserRouter>
     </div>
