@@ -5,10 +5,13 @@ import {
     Typography,
     makeStyles,
     Grid,
+    Button
   } from "@material-ui/core";
+import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Avatar} from '@material-ui/core'
+import {useNavigate} from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     title:{
       fontSize:"1.5rem",
@@ -26,13 +29,29 @@ const useStyles = makeStyles((theme) => ({
         color: "yellow",
       },
     },
+    link1: {
+      textDecoration: "none",
+      color: "white",
+      fontSize: "1.5rem",
+      marginLeft:"0.5rem",
+      verticalAlign:"center",
+      "&:hover": {
+        color: "red",
+      },
+    },
     items:{
       display:"flex",
+      justifyContent:"space-between"
     }
   }));
 const NavBar:FC = () => {
     const classes = useStyles();
     const avatarStyle={backgroundColor:'#1bbd7e'}
+    const navigate = useNavigate();
+    const handleLogout=():any=>{
+      Cookies.remove("StoreId");
+      navigate("/")
+    }
     return (
         <AppBar position="static">
         <Toolbar>
@@ -50,6 +69,7 @@ const NavBar:FC = () => {
             <div className={classes.items}>
               <Link  to="/store" className={classes.link}>username</Link>
               <Avatar style={avatarStyle}><AccountCircleIcon/></Avatar>
+              <Button onClick={handleLogout} className={classes.link1}>Logout</Button>
             </div>
           </Grid>
         </Grid>

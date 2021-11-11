@@ -1,6 +1,8 @@
-import React, { FC,useState,useEffect,useRef,ChangeEvent } from 'react'
+import React, { FC,useState,useEffect,useRef } from 'react'
 import { Grid,Paper, Avatar, Button} from '@material-ui/core'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import axios from 'axios'
+import Cookies from "js-cookie";
 import Controls from './Inputs/Controls';
 import {useNavigate} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -12,6 +14,7 @@ const LoginPage:FC = () => {
     const[password,setPassword]=useState<string>("")
     const[error,setError]=useState<string>("")
     const [prog,setProg]=useState<boolean>(false)
+    const avatarStyle={backgroundColor:'#1bbd7e',margin:"0 auto"}
     const paperStyle={padding :20,height:'70vh',width:280, margin:"20px auto"}
     const btnstyle={margin:'8px 0'}
     useEffect(()=>{
@@ -22,40 +25,41 @@ const LoginPage:FC = () => {
             _isMounted.current = false;
         }
     },[])
-    const handleSubmit=async (e:ChangeEvent<HTMLInputElement>)=>{
+    const handleSubmit=async (e: React.FormEvent<HTMLFormElement>)=>{
         setProg(true)
         e.preventDefault();
         const response = await axios.post("https://fakestoreapi.com/auth/login", {
             username:username,
             password:password
           });
-          console.log(response);
+        //   console.log(response);
         if(response){
             setProg(false)
            if(response.data.status &&response.data.status=="Error"){
             setError(response.data.msg);
            }else{
-            localStorage.setItem("StoreId", response.data.token);
+            Cookies.set("StoreId", response.data.token);
             navigate("/store")
            }
         }
         setUsername("")
         setPassword("")        
     }
-    const handleChange=(e:ChangeEvent<HTMLInputElement>)=>{
-        if(e.target.name=="username"){
-            setUsername(e.target.value)
+    const handleChange=(e: React.FormEvent<HTMLFormElement>)=>{
+        if(e.currentTarget.name=="username"){
+            setUsername(e.currentTarget.value)
         }else{
-            setPassword(e.target.value)
+            setPassword(e.currentTarget.value)
         }
 
     }
     return (
-        <form onSubmit={(e)=>handleSubmit}>
+        <form onSubmit={handleSubmit}>
         <Grid container>
             <Paper elevation={10} style={paperStyle}>
-                <Grid justifyContent="center" >
-                    <h2>Login Page</h2>
+                <Grid  >
+                    <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
+                    <h2 style={{textAlign:"center"}}>Login Page</h2>
                 </Grid>
                 <br/>
                 {error?  <p style={{color:"red"}} >{error}</p>:""}

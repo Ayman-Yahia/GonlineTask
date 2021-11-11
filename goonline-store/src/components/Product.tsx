@@ -3,12 +3,13 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import {useParams} from "react-router-dom";
 import NavBar from './NavBar';
+import Cookies from "js-cookie";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import CardMedia from '@material-ui/core/CardMedia';
-import image from '../imgs/product.jpg'
-const Product:FC = (props) => {
+import Controls from './Inputs/Controls';
+const Product:FC = () => {
     interface pro{
         id:number,
         title:string,
@@ -33,11 +34,13 @@ const Product:FC = (props) => {
             count:0
         }
     })
+    const backStyle={marginBottom:"0.5rem",cursor:"pointer"}
     const navigate = useNavigate();
     const {id} = useParams()
     const[progres,setProgres]=useState<boolean>(false)
+    const [quantity,setQuantity]=useState<number>(0)
     useEffect(()=>{
-        if (!localStorage.getItem("StoreId")) {
+        if (!Cookies.get("StoreId")) {
             navigate("/")
         }
         setProgres(true)
@@ -50,6 +53,12 @@ const Product:FC = (props) => {
             console.log(err);
         })
     },[])
+    const handleQuantity=(e: React.FormEvent<HTMLFormElement>):void=>{
+      setQuantity(e.currentTarget.value)
+    }
+    // const handleQuantity=():void=>{
+
+    // }
     return (
       <>
       <NavBar/>
@@ -65,7 +74,7 @@ const Product:FC = (props) => {
         <div className="product">
         <div className="details" >
           <div className="big-img">
-          <KeyboardBackspaceIcon style={{cursor:"pointer"}} onClick={()=>{
+          <KeyboardBackspaceIcon style={backStyle} onClick={()=>{
             navigate("/store")
             }}/>
             <CardMedia component="img" src={product.image} />
@@ -78,7 +87,8 @@ const Product:FC = (props) => {
             <h2>Category: {product.category}</h2>
             <h2>${product.price}</h2>
             <p>{product.description}</p>
-            {/* <button className="cart">Add to cart</button> */}
+            <Controls.TextInput name="quantity" onChange={handleQuantity}  placeholder='Enter Quantity' type="number" min={0} />
+            <button className="cart">Add to cart</button>
           </div>
         </div>
     </div>
