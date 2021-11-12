@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, {FC,useContext,useState,useEffect} from 'react'
 import {
     AppBar,
     Toolbar,
@@ -7,13 +7,15 @@ import {
     Grid,
     Button
   } from "@material-ui/core";
-import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Badge from '@material-ui/core/Badge';
 import { Avatar} from '@material-ui/core'
 import {useNavigate} from 'react-router-dom';
+import {CartItemType} from "../App"
+import {CookieContext} from '../AppContext'
+
 const useStyles = makeStyles((theme) => ({
     title:{
       fontSize:"1.5rem",
@@ -49,11 +51,17 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 const NavBar:FC = () => {
+    const {cookies}=useContext(CookieContext) 
+    // const cartQuantity=
     const classes = useStyles();
     const avatarStyle={backgroundColor:'#1bbd7e',margin:"0 0.5rem",cursor:"pointer"}
     const navigate = useNavigate();
+    var x:number=0;
+      cookies.get("Cart").forEach((element:CartItemType) => {
+        x+=element.amount
+      })
     const handleLogout=():void=>{
-      Cookies.remove("StoreId");
+      localStorage.removeItem("StoreId");
       navigate("/")
     }
     return (
@@ -73,7 +81,7 @@ const NavBar:FC = () => {
             <div className={classes.items}>
               <Link  to="/store" className={classes.link}>mor_2314</Link>
               <Avatar style={avatarStyle}><AccountCircleIcon/></Avatar>
-              <Badge badgeContent={0} color='error' style={{marginTop:"0.5rem",cursor:"pointer"}} onClick={()=>navigate("/cart")}>
+              <Badge badgeContent={x} color='error' style={{marginTop:"0.5rem",cursor:"pointer"}} onClick={()=>navigate("/cart")}>
                 <AddShoppingCartIcon />
               </Badge>
               <Button onClick={handleLogout} className={classes.link1}>Logout</Button>

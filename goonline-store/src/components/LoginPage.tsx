@@ -2,11 +2,11 @@ import React, { FC,useState,useEffect,useRef } from 'react'
 import { Grid,Paper, Avatar, Button} from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import axios from 'axios'
-import Cookies from "js-cookie";
 import Controls from './Inputs/Controls';
 import {useNavigate} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
+
 const LoginPage:FC = () => {
     const _isMounted = useRef<boolean>(true);
     const navigate = useNavigate();
@@ -38,7 +38,7 @@ const LoginPage:FC = () => {
            if(response.data.status &&response.data.status==="Error"){
             setError(response.data.msg);
            }else{
-            Cookies.set("StoreId", response.data.token);
+            localStorage.setItem("StoreId", response.data.token);
             navigate("/store")
            }
         }
@@ -64,10 +64,10 @@ const LoginPage:FC = () => {
                 <br/>
                 {error?  <p style={{color:"red"}} >{error}</p>:""}
                 <br/>
-                <Controls.TextInput name="username" onChange={handleChange} placeholder='Enter username' type="text" />
+                <Controls.TextInput name="username" value={username} onChange={handleChange} placeholder='Enter username' type="text" />
                 <br/>
                 <br/>
-                <Controls.TextInput name="password" onChange={handleChange} placeholder='Enter password' type='password'/>
+                <Controls.TextInput name="password"value={password} onChange={handleChange} placeholder='Enter password' type='password'/>
                 <br/>
                 <br/>
                 <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Login</Button>
