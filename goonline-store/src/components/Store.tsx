@@ -7,13 +7,14 @@ import NavBar from './NavBar';
 import Header from './Header';
 import Products from './Products';
 import {CookieContext} from '../AppContext'
+import {CartItemType} from '../App'
 
 const Store:FC = () => {
     const {cookies}=useContext(CookieContext)
     const [search,setSearch]=useState<string>("")
     const[progress,setProgress]=useState<boolean>(false)
     const navigate = useNavigate();
-    const[products,setProducts]=useState([])
+    const[products,setProducts]=useState<CartItemType[]>([])
     const[categories,setCategories]=useState<string[]>([])
     useEffect(()=>{
         if (!cookies.get("StoreId")) {

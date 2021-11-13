@@ -9,9 +9,8 @@ type Props = {
 export const ContextProvider=({ children }: Props)=>{
     const[cart,setCart]=useState<CartItemType[]>([])
     const cookies = new Cookies();
-    if(cart.length===0){
         
-    }else{
+    if(cart.length!==0){
         cookies.set("Cart", cart, { path: '/', maxAge: 60 * 60 * 24 * 365, });
     }
     return (

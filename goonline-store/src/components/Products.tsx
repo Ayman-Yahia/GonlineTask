@@ -2,6 +2,8 @@ import React, { FC } from 'react'
 import ProductCard from './Card'
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import {CartItemType} from '../App'
+
 const useStyles = makeStyles({
     gridContainer: {
       paddingLeft: "40px",
@@ -9,7 +11,7 @@ const useStyles = makeStyles({
     }
   });
   interface props{
-    products:any,
+    products:(CartItemType[]),
     search:string
 }
 const Products:FC<props> = ({products,search}) => {
@@ -21,7 +23,7 @@ const Products:FC<props> = ({products,search}) => {
         className={classes.gridContainer}
         justifyContent="center"
         >
-            { products.filter((pro:any)=>{
+            { products.filter((pro)=>{
               if(search==""){
                 return pro
               }

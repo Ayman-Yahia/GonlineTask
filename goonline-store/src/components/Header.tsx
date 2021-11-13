@@ -4,10 +4,12 @@ import axios from 'axios'
 import Controls from './Inputs/Controls';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
+import {CartItemType} from '../App'
+
 interface props{
     categories:string[],
-    setSearch:any,
-    setProducts:any
+    setSearch:(value:string)=>void,
+    setProducts:(value:CartItemType[])=>void
 }
 
 const Header:FC<props> = ({categories,setSearch,setProducts}) => {

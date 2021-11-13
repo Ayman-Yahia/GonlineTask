@@ -30,19 +30,18 @@ const LoginPage:FC = () => {
     const handleSubmit=async (e: React.FormEvent<HTMLFormElement>)=>{
         setProg(true)
         e.preventDefault();
-        const response = await axios.post("https://fakestoreapi.com/auth/login", {
+        const response:any = await axios.post("https://fakestoreapi.com/auth/login", {
             username:username,
             password:password
-          });
-        //   console.log(response);
+        });
         if(response){
             setProg(false)
-           if(response.data.status &&response.data.status==="Error"){
+        if(response.data.status &&response.data.status==="Error"){
             setError(response.data.msg);
-           }else{
+        }else{
             cookies.set("StoreId", response.data.token);
             navigate("/store")
-           }
+        }
         }
         setUsername("")
         setPassword("")        

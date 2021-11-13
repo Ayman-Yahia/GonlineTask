@@ -2,21 +2,19 @@ import React,{FC} from 'react';
 import { TextField } from '@material-ui/core';
 
 interface props{
-    onChange:any,
+    onChange:(value: React.FormEvent<HTMLFormElement>)=>void,
     placeholder:string,
     type:string,
     name:string,
-    min?:number,
     value?:any
 }
-const TextInput:FC<props> = ({ onChange,placeholder,type,name,min,value}) => {
+const TextInput:FC<props> = ({ onChange,placeholder,type,name,value}) => {
     return (
         <TextField
         // variant="outlined"
         value={value}
         name={name}
         type={type}
-        // min={min}
         fullWidth 
         required
         placeholder={placeholder}

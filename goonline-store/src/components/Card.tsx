@@ -9,21 +9,12 @@ import Typography from "@material-ui/core/Typography";
 import {useNavigate} from 'react-router-dom';
 import {CartItemType} from '../App'
 import {CookieContext} from '../AppContext'
-interface pro{
-  id:number,
-  title:string,
-  price:number,
-  description:string,
-  category:string,
-  image:string,
-  rating:{
-      rate:number,
-      count:number
-  }
-}
+import { Wrapper } from './styling/Card.styles';
+
 const useStyles = makeStyles({
     root: {
-      minWidth: 200
+      minWidth: 200,
+      minHeight:"100vh"
     },
     bullet: {
       display: "inline-block",
@@ -38,9 +29,9 @@ const useStyles = makeStyles({
       marginBottom: 12
     }
   });
-  interface props{
-      product:any
-  }
+interface props{
+    product:CartItemType
+}
 const ProductCard:FC<props> = ({product}) => {
     const {cookies,setCart}=useContext(CookieContext)
     const navigate = useNavigate();
@@ -64,34 +55,21 @@ const ProductCard:FC<props> = ({product}) => {
     
     };
     return (
-        <Card className={classes.root} variant="outlined">
-        <CardContent>
-          <Typography
-            className={classes.title}
-            color="textSecondary"
-            gutterBottom
-            
-          >
-          
-          <CardMedia component="img" src={product.image} style={{width:"100%",height:"50vh",margin:"0 auto"}}/>
-          </Typography>
-          <Typography variant="h5" component="h2">
-            {product.title}
-          </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-          {product.price}$
-          </Typography>
-          <Typography variant="body2" component="p">
-          {product.description}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" onClick={()=>{
-              navigate('/store/'+product.id)
-          }}>view product</Button>
-          <Button size="small" onClick={()=>handleAddToCart(product)}>Add to Cart</Button>
-        </CardActions>
-      </Card>
+      <Wrapper>
+      <img src={product.image} alt={product.title} />
+      <div>
+        <h3>{product.title}</h3>
+        <p>{product.description}</p>
+        <h3>${product.price}</h3>
+      </div>
+      <div className="buttons">
+        <Button onClick={()=>{
+                navigate('/store/'+product.id)
+            }}>View Profuct</Button>
+        <Button onClick={() => handleAddToCart(product)} >Add to cart</Button>
+      </div>
+
+    </Wrapper>
     )
 }
 

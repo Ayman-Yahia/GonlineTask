@@ -1,11 +1,10 @@
-import React, { FC ,useContext} from 'react'
+import React, { FC } from 'react'
 
 import Button from '@material-ui/core/Button';
 // Types
 import { CartItemType } from '../App';
 // Styles
 import { Wrapper } from './styling/CartItem.styles';
-import {CookieContext} from '../AppContext'
 
 type Props = {
   item: CartItemType;
