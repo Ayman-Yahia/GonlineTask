@@ -42,7 +42,7 @@ const useStyles = makeStyles({
       product:any
   }
 const ProductCard:FC<props> = ({product}) => {
-    const {cookies,cart,setCart}=useContext(CookieContext)
+    const {cookies,setCart}=useContext(CookieContext)
     const navigate = useNavigate();
     const classes = useStyles();
     const handleAddToCart = (clickedItem: CartItemType) => {

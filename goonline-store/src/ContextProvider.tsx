@@ -7,16 +7,16 @@ type Props = {
     children: React.ReactNode;
 };
 export const ContextProvider=({ children }: Props)=>{
+    const[cart,setCart]=useState<CartItemType[]>([])
     const cookies = new Cookies();
-    if(cookies.get("Cart")){
-        console.log("");
+    if(cart.length===0){
+        
     }else{
-        cookies.set("Cart", [], { path: '/', maxAge: 60 * 60 * 24 * 365, });
+        cookies.set("Cart", cart, { path: '/', maxAge: 60 * 60 * 24 * 365, });
     }
-    const[cart,setCart]=useState<CartItemType[]>()
     return (
         <CookieContext.Provider value={{ cookies,cart,setCart }}>
-          {children}
+            {children}
         </CookieContext.Provider>
-      );
+    );
 }

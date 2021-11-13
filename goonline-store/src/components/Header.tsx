@@ -51,7 +51,7 @@ const Header:FC<props> = ({categories,setSearch,setProducts}) => {
                 }
             </div>
             <div className={styles.search}>
-            <Controls.TextInput name="search" onChange={handleSearch} placeholder='Enter username' type="search" />
+            <Controls.TextInput name="search" onChange={handleSearch} placeholder='Search for product' type="search" />
             </div>
             <br/>
             {progress1 &&(

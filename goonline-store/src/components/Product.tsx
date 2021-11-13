@@ -8,6 +8,8 @@ import Box from '@material-ui/core/Box';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import CardMedia from '@material-ui/core/CardMedia';
 import {CartItemType} from '../App'
+import {CookieContext} from '../AppContext'
+
 interface pro{
   id:number,
   title:string,
@@ -21,6 +23,7 @@ interface pro{
   }
 }
 const Product:FC = () => {
+    const {cookies}=useContext(CookieContext)
     const [product,setProduct]=useState<CartItemType>(
       {
         id:0,
@@ -40,7 +43,7 @@ const Product:FC = () => {
     const {id} = useParams()
     const[progres,setProgres]=useState<boolean>(false)
     useEffect(()=>{
-        if (!localStorage.getItem("StoreId")) {
+        if (!cookies.get("StoreId")) {
             navigate("/")
         }
         setProgres(true)

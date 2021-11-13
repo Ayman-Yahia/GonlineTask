@@ -10,15 +10,13 @@ import {CookieContext} from '../AppContext'
 
 const Store:FC = () => {
     const {cookies}=useContext(CookieContext)
-    console.log(cookies.get("Cart"));
-    
     const [search,setSearch]=useState<string>("")
     const[progress,setProgress]=useState<boolean>(false)
     const navigate = useNavigate();
     const[products,setProducts]=useState([])
     const[categories,setCategories]=useState<string[]>([])
     useEffect(()=>{
-        if (!localStorage.getItem("StoreId")) {
+        if (!cookies.get("StoreId")) {
             navigate("/")
         }
         setProgress(true)

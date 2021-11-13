@@ -1,12 +1,19 @@
-import React, { FC ,useContext} from 'react'
+import React, { FC ,useContext,useEffect} from 'react'
 import CartItem from './CartItem'
 import { Wrapper } from './styling/Cart.styles';
 import { CartItemType } from '../App';
 import {CookieContext} from '../AppContext'
 import NavBar from './NavBar';
+import {useNavigate} from 'react-router-dom';
 
 const Cart:FC = () => {
-    const {cookies,cart,setCart}=useContext(CookieContext)
+    const navigate = useNavigate();
+    const {cookies,setCart}=useContext(CookieContext)
+    useEffect(()=>{
+      if (!cookies.get("StoreId")) {
+        navigate("/")
+    }
+    },[])
     const addToCart = (clickedItem: CartItemType) => {
         // 1. Is the item already added in the cart?
           const isItemInCart = cookies.get("Cart").find((item:CartItemType)=> item.id === clickedItem.id);

@@ -1,4 +1,4 @@
-import React, { FC,useState,useEffect,useRef } from 'react'
+import React, { FC,useState,useEffect,useRef,useContext } from 'react'
 import { Grid,Paper, Avatar, Button} from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import axios from 'axios'
@@ -6,8 +6,10 @@ import Controls from './Inputs/Controls';
 import {useNavigate} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
+import {CookieContext} from '../AppContext'
 
 const LoginPage:FC = () => {
+    const {cookies}=useContext(CookieContext) 
     const _isMounted = useRef<boolean>(true);
     const navigate = useNavigate();
     const[username,setUsername]=useState<string>("")
@@ -38,7 +40,7 @@ const LoginPage:FC = () => {
            if(response.data.status &&response.data.status==="Error"){
             setError(response.data.msg);
            }else{
-            localStorage.setItem("StoreId", response.data.token);
+            cookies.set("StoreId", response.data.token);
             navigate("/store")
            }
         }

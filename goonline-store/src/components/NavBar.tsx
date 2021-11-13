@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
     title:{
       fontSize:"1.5rem",
       verticalAlign:"center",
-      marginTop:"15%"
+      marginTop:"15%",
+      cursor:"pointer"
 
     },
     link: {
@@ -61,7 +62,7 @@ const NavBar:FC = () => {
         x+=element.amount
       })
     const handleLogout=():void=>{
-      localStorage.removeItem("StoreId");
+      cookies.remove("StoreId");
       navigate("/")
     }
     return (
@@ -73,8 +74,8 @@ const NavBar:FC = () => {
           spacing={10}
         >
           <Grid item>
-            <Typography >
-              <span  className={classes.title}>Goonline Store</span>
+            <Typography  >
+              <span  className={classes.title} onClick={()=>navigate("/store")}>Goonline Store</span>
             </Typography>
           </Grid>
           <Grid item>
