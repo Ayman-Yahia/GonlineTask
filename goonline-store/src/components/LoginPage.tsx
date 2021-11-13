@@ -39,6 +39,9 @@ const LoginPage:FC = () => {
         if(response.data.status &&response.data.status==="Error"){
             setError(response.data.msg);
         }else{
+            if(!cookies.get("Cart")){
+                cookies.set("Cart", [], { path: '/', maxAge: 60 * 60 * 24 * 365, });
+            }
             cookies.set("StoreId", response.data.token);
             navigate("/store")
         }

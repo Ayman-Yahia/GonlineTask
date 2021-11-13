@@ -1,59 +1,58 @@
-import React, {FC,useContext,useState,useEffect} from 'react'
+import React, {FC,useContext} from 'react'
 import {
     AppBar,
     Toolbar,
     Typography,
     makeStyles,
-    Grid,
-    Button
   } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+// import LogoutIcon from '@mui/icons-material/Logout';
 import Badge from '@material-ui/core/Badge';
 import { Avatar} from '@material-ui/core'
 import {useNavigate} from 'react-router-dom';
 import {CartItemType} from "../App"
 import {CookieContext} from '../AppContext'
-
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
-    title:{
-      fontSize:"1.5rem",
-      verticalAlign:"center",
-      marginTop:"15%",
-      cursor:"pointer"
-
+  appbar: {
+    position: "sticky",
+    bottom: 0,
+    top: 0,
+  },
+  toolbar: {
+    display: "flex",
+    justifyContent: "space-between",
+    // alignItems: "center",
+  },
+  search: {
+    display: "flex",
+    gap: "5px",
+    alignItems: "center",
+    borderRadius: theme.shape.borderRadius,
+    width: "50%",
+    padding: "5px",
+  },
+  icons: {
+    display: "flex",
+    alignItems: "center",
+  },
+  badge: {
+    marginRight: theme.spacing(2),
+    cursor:"pointer"
+  },
+  log:{
+    cursor:"pointer"
+  },
+  searchBtn: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
     },
-    link: {
-      textDecoration: "none",
-      color: "white",
-      fontSize: "1.3rem",
-      marginRight:"0.5rem",
-      marginTop:"1.5%",
-      // verticalAlign:"center",
-      "&:hover": {
-        color: "yellow",
-      },
-    },
-    link1: {
-      textDecoration: "none",
-      color: "white",
-      fontSize: "1rem",
-      fontWeight:"bold",
-      marginLeft:"0.5rem",
-      verticalAlign:"center",
-      "&:hover": {
-        color: "red",
-      },
-    },
-    items:{
-      display:"flex",
-      justifyContent:"space-between"
-    }
-  }));
+  }
+}));
 const NavBar:FC = () => {
     const {cookies}=useContext(CookieContext) 
-    // const cartQuantity=
     const classes = useStyles();
     const avatarStyle={backgroundColor:'#1bbd7e',margin:"0 0.5rem",cursor:"pointer"}
     const navigate = useNavigate();
@@ -66,31 +65,18 @@ const NavBar:FC = () => {
       navigate("/")
     }
     return (
-        <AppBar position="static">
-        <Toolbar>
-        <Grid
-          justifyContent="space-between" 
-          container 
-          spacing={10}
-        >
-          <Grid item>
-            <Typography  >
-              <span  className={classes.title} onClick={()=>navigate("/store")}>Goonline Store</span>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <div className={classes.items}>
-              <Link  to="/store" className={classes.link}>mor_2314</Link>
-              <Avatar style={avatarStyle}><AccountCircleIcon/></Avatar>
-              <Badge badgeContent={x} color='error' style={{marginTop:"0.5rem",cursor:"pointer"}} onClick={()=>navigate("/cart")}>
+      <AppBar position="static" className={classes.appbar}>
+      <Toolbar className={classes.toolbar}>
+        <Typography variant="h6" onClick={()=>navigate("/store")} style={{cursor:"pointer"}}>Goonline Store</Typography>
+        <div className={classes.icons}>
+          <Badge badgeContent={x} color='error' className={classes.badge} onClick={()=>navigate("/cart")}>
                 <AddShoppingCartIcon />
-              </Badge>
-              <Button onClick={handleLogout} className={classes.link1}>Logout</Button>
-            </div>
-          </Grid>
-        </Grid>
-        </Toolbar>
-      </AppBar>
+          </Badge>
+          <Avatar style={avatarStyle} onClick={()=>navigate("/store")}><AccountCircleIcon/></Avatar>
+          <Typography variant="h6" onClick={handleLogout} className={classes.log}>Logout</Typography>
+        </div>
+      </Toolbar>
+    </AppBar>
     )
 }
 
