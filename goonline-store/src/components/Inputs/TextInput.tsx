@@ -2,7 +2,7 @@ import React,{FC} from 'react';
 import { TextField } from '@material-ui/core';
 
 interface props{
-    onChange:(value: React.FormEvent<HTMLFormElement>)=>void,
+    onChange:any,
     placeholder:string,
     type:string,
     name:string,
