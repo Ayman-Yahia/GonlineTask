@@ -10,9 +10,10 @@ type Props = {
   item: CartItemType;
   addToCart: (clickedItem: CartItemType) => void;
   removeFromCart: (id: number) => void;
+  remove:(id: number) => void;
 };
 
-const CartItem:FC<Props> = ({ item, addToCart, removeFromCart }) => {
+const CartItem:FC<Props> = ({ item, addToCart, removeFromCart,remove }) => {
     return(
         <Wrapper>
         <div>
@@ -22,6 +23,7 @@ const CartItem:FC<Props> = ({ item, addToCart, removeFromCart }) => {
             <p>Total: ${(item.amount * item.price).toFixed(2)}</p>
             </div>
             <div className='buttons'>
+
             <Button
                 size='small'
                 disableElevation
@@ -38,6 +40,15 @@ const CartItem:FC<Props> = ({ item, addToCart, removeFromCart }) => {
                 onClick={() => addToCart(item)}
             >
                 +
+            </Button>
+            <Button
+                size='small'
+                disableElevation
+                variant='contained'
+                style={{backgroundColor: '#e0e0e0', color: 'red'}}
+                onClick={() => remove(item.id)}
+            >
+                x
             </Button>
             </div>
         </div>

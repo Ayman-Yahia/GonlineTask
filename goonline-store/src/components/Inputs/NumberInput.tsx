@@ -4,25 +4,24 @@ import { TextField } from '@material-ui/core';
 interface props{
     onChange:any,
     placeholder?:string,
-    type:string,
     name:string,
     value?:any,
+    min?:number
 }
-const TextInput:FC<props> = ({ onChange,placeholder,type,name,value}) => {
+const NumberInput:FC<props> = ({ onChange,name,value,placeholder,min}) => {
     return (
         <TextField
         // variant="outlined"
-        
+        // min={1}
         value={value}
         name={name}
-        type={type}
-        inputProps={{ min: "1", step: "1" }}
+        type="number"
+        placeholder={placeholder}
         fullWidth 
         required
-        placeholder={placeholder}
         onChange={onChange}
     />
     )
 }
 
-export default TextInput;
+export default NumberInput;

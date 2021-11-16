@@ -13,7 +13,6 @@ import { Avatar} from '@material-ui/core'
 import {useNavigate} from 'react-router-dom';
 import {CartItemType} from "../App"
 import {CookieContext} from '../AppContext'
-import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   appbar: {
     position: "sticky",
@@ -63,7 +62,7 @@ const NavBar:FC = () => {
     const handleLogout=():void=>{
       cookies.remove("StoreId");
       navigate("/")
-    }
+    }    
     return (
       <AppBar position="static" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>

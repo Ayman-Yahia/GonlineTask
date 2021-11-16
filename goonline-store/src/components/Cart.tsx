@@ -45,6 +45,19 @@ const Cart:FC = () => {
       )
       setCart(cookies.get("Cart"))
     }
+    const removeItem = (id: number) => {
+      cookies.set("Cart",(cookies.get("Cart").reduce((ack:any, item:any) => {
+        if (item.id === id) {
+          if (item.amount) return ack;
+          return [...ack, { ...item, amount: item.amount - item.amount }];
+        } else {
+          return [...ack, item];
+        }
+      }, [] as CartItemType[])
+    )
+      )
+      setCart(cookies.get("Cart"))
+    }
     var total:number=0;
     cookies.get("Cart").forEach((element:CartItemType) => {
       total+=(element.amount*element.price)
@@ -61,6 +74,7 @@ const Cart:FC = () => {
                 item={item}
                 addToCart={addToCart}
                 removeFromCart={handleRemoveFromCart}
+                remove={removeItem}
             />
             ))}
             <h2>Total: ${total}</h2>
