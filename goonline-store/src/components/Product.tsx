@@ -33,10 +33,12 @@ const Product:FC = () => {
     const navigate = useNavigate();
     const {id} = useParams()
     const[progres,setProgres]=useState<boolean>(false)
+
     useEffect(()=>{
-        if (!cookies.get("StoreId")) {
-            navigate("/")
-        }
+      if (!cookies.get("StoreId")) {
+        navigate("/")
+      }
+
         setProgres(true)
         axios.get("https://fakestoreapi.com/products/"+id)
         .then((res)=>{

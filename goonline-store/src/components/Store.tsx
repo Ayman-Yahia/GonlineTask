@@ -16,10 +16,12 @@ const Store:FC = () => {
     const navigate = useNavigate();
     const[products,setProducts]=useState<CartItemType[]>([])
     const[categories,setCategories]=useState<string[]>([])
+
     useEffect(()=>{
         if (!cookies.get("StoreId")) {
             navigate("/")
         }
+
         setProgress(true)
         axios.get('https://fakestoreapi.com/products')
         .then((res)=>{

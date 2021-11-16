@@ -33,7 +33,7 @@ const Cart:FC = () => {
       
     };
     const handleRemoveFromCart = (id: number) => {
-      cookies.set("Cart",(cookies.get("Cart").reduce((ack:any, item:any) => {
+      cookies.set("Cart",(cookies.get("Cart").reduce((ack:CartItemType[], item:CartItemType) => {
           if (item.id === id) {
             if (item.amount === 1) return ack;
             return [...ack, { ...item, amount: item.amount - 1 }];
@@ -46,10 +46,9 @@ const Cart:FC = () => {
       setCart(cookies.get("Cart"))
     }
     const removeItem = (id: number) => {
-      cookies.set("Cart",(cookies.get("Cart").reduce((ack:any, item:any) => {
+      cookies.set("Cart",(cookies.get("Cart").reduce((ack:CartItemType[], item:CartItemType) => {
         if (item.id === id) {
           if (item.amount) return ack;
-          return [...ack, { ...item, amount: item.amount - item.amount }];
         } else {
           return [...ack, item];
         }
