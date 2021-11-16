@@ -10,9 +10,10 @@ import { CartItemType } from '../App';
 type Props = {
     openPop:boolean;
     deletedProdcut:number;
-    handleClose:()=>void
+    handleClose:()=>void;
+    text:string
 }
-const PopUp:FC<Props> = ({openPop,deletedProdcut,handleClose}) => {
+const PopUp:FC<Props> = ({openPop,deletedProdcut,handleClose,text}) => {
     const {cookies,setCart}=useContext(CookieContext)
     const removeItem = (id: number):void => {              
         cookies.set("Cart",(cookies.get("Cart").reduce((ack:CartItemType[], item:CartItemType) => {
@@ -37,7 +38,7 @@ const PopUp:FC<Props> = ({openPop,deletedProdcut,handleClose}) => {
         >
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-                Are you sure you want to delete this item from cart?
+                {text}
             </DialogContentText>
           </DialogContent>
           <DialogActions>

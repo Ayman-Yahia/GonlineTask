@@ -56,7 +56,7 @@ const CartItem:FC<Props> = ({ item, addToCart, removeFromCart,deleteItem,openP})
         </div>
         <img src={item.image} alt={item.title} />
         </Wrapper>
-        <PopUp openPop={openP} deletedProdcut={item.id} handleClose={deleteItem}/>
+        <PopUp openPop={openP} deletedProdcut={item.id} handleClose={deleteItem} text="Are you sure you want to delete this item from cart?"/>
         </>
     )
 }
