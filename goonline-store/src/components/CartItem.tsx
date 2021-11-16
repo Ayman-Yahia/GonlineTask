@@ -5,16 +5,18 @@ import Button from '@material-ui/core/Button';
 import { CartItemType } from '../App';
 // Styles
 import { Wrapper } from './styling/CartItem.styles';
-
+import PopUp from './PopUp';
 type Props = {
   item: CartItemType;
   addToCart: (clickedItem: CartItemType) => void;
   removeFromCart: (id: number) => void;
-  remove:(id: number) => void;
+  deleteItem:() => void;
+  openP:boolean;
 };
 
-const CartItem:FC<Props> = ({ item, addToCart, removeFromCart,remove }) => {
+const CartItem:FC<Props> = ({ item, addToCart, removeFromCart,deleteItem,openP}) => {   
     return(
+        <>
         <Wrapper>
         <div>
             <h3>{item.title}</h3>
@@ -46,7 +48,7 @@ const CartItem:FC<Props> = ({ item, addToCart, removeFromCart,remove }) => {
                 disableElevation
                 variant='contained'
                 style={{backgroundColor: '#e0e0e0', color: 'red'}}
-                onClick={() => remove(item.id)}
+                onClick={deleteItem}
             >
                 x
             </Button>
@@ -54,6 +56,8 @@ const CartItem:FC<Props> = ({ item, addToCart, removeFromCart,remove }) => {
         </div>
         <img src={item.image} alt={item.title} />
         </Wrapper>
+        <PopUp openPop={openP} deletedProdcut={item.id} handleClose={deleteItem}/>
+        </>
     )
 }
 

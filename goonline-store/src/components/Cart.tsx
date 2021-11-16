@@ -1,4 +1,4 @@
-import React, { FC ,useContext,useEffect} from 'react'
+import React, { FC ,useContext,useEffect,useState} from 'react'
 import CartItem from './CartItem'
 import { Wrapper } from './styling/Cart.styles';
 import { CartItemType } from '../App';
@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom';
 
 const Cart:FC = () => {
     const navigate = useNavigate();
+    const [open,setOpen]=useState<boolean>(false)
     const {cookies,setCart}=useContext(CookieContext)
     useEffect(()=>{
       if (!cookies.get("StoreId")) {
@@ -45,18 +46,10 @@ const Cart:FC = () => {
       )
       setCart(cookies.get("Cart"))
     }
-    const removeItem = (id: number) => {
-      cookies.set("Cart",(cookies.get("Cart").reduce((ack:CartItemType[], item:CartItemType) => {
-        if (item.id === id) {
-          if (item.amount) return ack;
-        } else {
-          return [...ack, item];
-        }
-      }, [] as CartItemType[])
-    )
-      )
-      setCart(cookies.get("Cart"))
-    }
+
+    const handleClickOpen = ():void => {
+      setOpen(!open);
+    };
     var total:number=0;
     cookies.get("Cart").forEach((element:CartItemType) => {
       total+=(element.amount*element.price)
@@ -73,7 +66,8 @@ const Cart:FC = () => {
                 item={item}
                 addToCart={addToCart}
                 removeFromCart={handleRemoveFromCart}
-                remove={removeItem}
+                deleteItem={handleClickOpen}
+                openP={open}
             />
             ))}
             <h2>Total: ${total}</h2>

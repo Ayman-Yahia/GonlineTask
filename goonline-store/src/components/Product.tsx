@@ -102,7 +102,7 @@ const Product:FC = () => {
             <Controls.NumberInput  name="quantity" value={quantity} onChange={quantityToCart} placeholder='Enter quantity' />
             <br/>
             <br/>
-            <Button variant="contained" color="primary" onClick={addQuantityToCart}>Add To Cart</Button>
+            <Button variant="contained" style={{backgroundColor: 'green', color: 'white'}} onClick={addQuantityToCart}>Add To Cart</Button>
           </div>
         </div>
     </div>
